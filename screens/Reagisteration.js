@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import {
   StyleSheet,
   TextInput,
@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import * as authActions from "../store/actions/auth";
-import AsyncStorage from "@react-native-community/async-storage";
 
 const Registration = ({ navigation }) => {
   const [islogin, setislogin] = useState(true);
@@ -26,29 +25,6 @@ const Registration = ({ navigation }) => {
     }
     dispatch(action);
   };
-
-  useEffect(() => {
-    const tryLogin = async () => {
-      const userData = await AsyncStorage.getItem("userdata");
-      if (!userData) {
-        dispatch(authActions.setDidTryAL());
-        return;
-      }
-      const transformedData = JSON.parse(userData);
-      const { token, userId } = transformedData;
-      // const expirationDate = new Date(expiryDate);
-      // if (expirationDate <= new Date() || !token || !userId) {
-      //   // props.navigation.navigate('Auth');
-      //   dispatch(authActions.setDidTryAL());
-      //   return;
-      // }
-      //  const expirationTime = expirationDate.getTime() - new Date().getTime();
-      // props.navigation.navigate('Shop');
-      dispatch(authActions.authenticate(userId, token, 20));
-    };
-
-    tryLogin();
-  }, [dispatch]);
 
   return (
     <View style={styles.container}>
