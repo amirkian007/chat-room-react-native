@@ -5,13 +5,12 @@ import ReduxThunk from "redux-thunk";
 import authReducer from "./store/reducers/auth";
 import chatReducer from "./store/reducers/chat";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { Provider as PaperProvider } from "react-native-paper";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios from "axios";
-import * as authActions from "./store/actions/auth";
 
 axios.defaults.baseURL = "http://192.168.1.103:3000";
 
