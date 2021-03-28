@@ -6,7 +6,9 @@ import Massage from "../components/Massage";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import Icon from "react-native-vector-icons/FontAwesome";
 import io from "socket.io-client";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
+import * as chatActions from "../store/actions/chat";
+
 const chatrrom = (props) => {
   const token = useSelector((state) => state.auth.token);
   const [inputhieght, setinputhieght] = useState({ height: "11%" });
@@ -15,6 +17,7 @@ const chatrrom = (props) => {
   const [massage_, setmassage] = useState();
   const userid = useSelector((state) => state.auth.userId);
   const [chats, setchats] = useState([]);
+  const dispatch = useDispatch();
 
   const renderListItem = (itemData) => {
     return (
@@ -34,8 +37,18 @@ const chatrrom = (props) => {
       },
     });
     setsocket(socket_);
-    socket_.on("chats", (data) => {
-      setchats((curPastGuesses) => [data, ...curPastGuesses]);
+    dispatch(chatActions.setsocket(socket_))
+    socket_.on("list_users", (data) => {
+      dispatch(chatActions.setusers(data.clients))
+      socket_.on("chats", (data) => {
+        setchats((curPastGuesses) => [data, ...curPastGuesses]);
+      });
+    });
+    socket_.on("new_user", (data) => {
+      dispatch(chatActions.setonlineusers(data.connected_user))
+    });
+    socket_.on("disconnected_user", (data) => {
+      dispatch(chatActions.removeonlineuser(data.disconnected_user))
     });
   }, []);
 
@@ -53,7 +66,7 @@ const chatrrom = (props) => {
       behavior="padding"
     >
       <View>
-        <View>
+        <View style={styles.chatcontainer}>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             ref={(ref) => {
@@ -124,6 +137,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopRightRadius: 0,
   },
+  chatcontainer: {
+    paddingBottom : 10
+  }
 });
 export const screenOptions = (navData) => {
   return {
@@ -140,7 +156,9 @@ export const screenOptions = (navData) => {
     ),
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item title="Add" iconName={"people-outline"} onPress={() => {}} />
+        <Item title="Add" iconName={"people-outline"} onPress={() => {
+          navData.navigation.navigate('onlineusers')
+        }} />
       </HeaderButtons>
     ),
   };
