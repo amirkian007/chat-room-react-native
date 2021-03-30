@@ -7,7 +7,6 @@ export const SET_DRAWER = "SET_DRAWER";
 
 export const setsocket = (socket) => {
   return (dispatch) => {
-    // dispatch(setLogoutTimer(expiryTime));
     dispatch({ type: SET_SOCKET, socket: socket});
   };
 };

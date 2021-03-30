@@ -11,18 +11,14 @@ import chatroom from "../screens/chatroom";
 import { Ionicons } from "@expo/vector-icons";
 import * as authActions from "../store/actions/auth";
 import onlineusers from "../screens/onlineusers";
-import { screenOptions as userProductsScreenOptions } from "../screens/chatroom";
-import { screenOptions as onlineuserProductsScreenOptions } from "../screens/onlineusers";
+import { screenOptions as chatroomScreenOptions } from "../screens/chatroom";
+import { screenOptions as onlineuserScreenOptions } from "../screens/onlineusers";
 import { useDispatch, useSelector } from "react-redux";
 import { View, StyleSheet } from "react-native";
 import {
-  useTheme,
   Avatar,
   Title,
   Caption,
-  Paragraph,
-  TouchableRipple,
-  Switch,
 } from "react-native-paper";
 const defaultNavOptions = {
   headerStyle: {
@@ -43,14 +39,14 @@ export const AdminNavigator = (props) => {
   return (
     <AdminStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <AdminStackNavigator.Screen
-        name="UserProducts"
+        name="chatroom"
         component={chatroom}
-        options={userProductsScreenOptions}
+        options={chatroomScreenOptions}
       />
       <AdminStackNavigator.Screen
         name="onlineusers"
         component={onlineusers}
-        options={onlineuserProductsScreenOptions}
+        options={onlineuserScreenOptions}
       />
     </AdminStackNavigator.Navigator>
   );

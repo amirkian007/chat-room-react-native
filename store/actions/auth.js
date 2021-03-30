@@ -1,4 +1,5 @@
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
+
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
 export const SET_DID_TRY_AL = "SET_DID_TRY_AL";
@@ -19,7 +20,6 @@ export const seterror = (error) => {
 
 export const authenticate = (userId, token, name, email) => {
   return (dispatch) => {  
-    // dispatch(setLogoutTimer(expiryTime));
     dispatch({
       type: AUTHENTICATE,
       userId: userId, 
@@ -49,12 +49,8 @@ export const signup = (email, password, name) => {
             e.data.token,
             e.data.name,  
             e.data.email 
-            //  parseInt(e.data.expiresIn) * 1000
           )
         );
-        //   const expirationDate = new Date(
-        //     new Date().getTime() + parseInt(resData.expiresIn) * 1000
-        //   );
         saveDataToStorage(
           e.data.token,
           e.data.userId,
@@ -85,7 +81,6 @@ export const login = (email, password) => {
             res.data.token,
             res.data.name,
             res.data.email
-            //  parseInt(resData.expiresIn) * 1000
           )
         );
         saveDataToStorage(
@@ -99,10 +94,6 @@ export const login = (email, password) => {
         console.log(err)
         dispatch(seterror("email and password do not match"))
       });
-
-    // const expirationDate = new Date(
-    //   new Date().getTime() + parseInt(resData.expiresIn) * 1000
-    // );
   };
 };
 

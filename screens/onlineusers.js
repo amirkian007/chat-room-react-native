@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  TextInput,
   Text,
   View,
-  TouchableOpacity,
 } from "react-native";
-import * as authActions from "../store/actions/auth";
 import * as chatActions from "../store/actions/chat";
 import { useDispatch, useSelector } from "react-redux";
 import { FlatList } from "react-native-gesture-handler";

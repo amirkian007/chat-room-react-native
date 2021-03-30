@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
 import { useDispatch, useSelector } from "react-redux";
 import * as authActions from "../store/actions/auth";
 import { Bubbles} from "react-native-loader";
@@ -218,7 +217,6 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 10,
     paddingLeft: 20,
-    //justifyContent: "center",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",

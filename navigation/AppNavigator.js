@@ -6,7 +6,6 @@ import * as authActions from "../store/actions/auth";
 import ChatNavigator from "./ChatNavigator";
 import AsyncStorage from "@react-native-community/async-storage";
 
-
 const AppNavigator = (props) => {
   const isAuth = useSelector(state => !!state.auth.token);
   const dispatch = useDispatch();
@@ -19,19 +18,10 @@ const AppNavigator = (props) => {
       }
       const transformedData = JSON.parse(userData);
       const { token, userId ,name,email } = transformedData;
-      // const expirationDate = new Date(expiryDate);
-      // if (expirationDate <= new Date() || !token || !userId) {
-      //   // props.navigation.navigate('Auth');
-      //   dispatch(authActions.setDidTryAL());
-      //   return;
-      // }
-      //  const expirationTime = expirationDate.getTime() - new Date().getTime();
-      // props.navigation.navigate('Shop');
       dispatch(authActions.authenticate(userId, token,name,email));
     };
     tryLogin();
   }, [dispatch]);
- // const didTryAutoLogin = useSelector(state => state.auth.didTryAutoLogin);
  
   return (
     <NavigationContainer>
