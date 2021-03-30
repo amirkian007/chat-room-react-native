@@ -18,7 +18,7 @@ const AppNavigator = (props) => {
         return;
       }
       const transformedData = JSON.parse(userData);
-      const { token, userId } = transformedData;
+      const { token, userId ,name,email } = transformedData;
       // const expirationDate = new Date(expiryDate);
       // if (expirationDate <= new Date() || !token || !userId) {
       //   // props.navigation.navigate('Auth');
@@ -27,7 +27,7 @@ const AppNavigator = (props) => {
       // }
       //  const expirationTime = expirationDate.getTime() - new Date().getTime();
       // props.navigation.navigate('Shop');
-      dispatch(authActions.authenticate(userId, token, 20));
+      dispatch(authActions.authenticate(userId, token,name,email));
     };
     tryLogin();
   }, [dispatch]);

@@ -7,19 +7,27 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
-import chatrrom from "../screens/chatrom";
+import chatroom from "../screens/chatroom";
 import { Ionicons } from "@expo/vector-icons";
 import * as authActions from "../store/actions/auth";
-import onlineusers from "../screens/onlineusers"
-import { screenOptions as userProductsScreenOptions } from "../screens/chatrom";
+import onlineusers from "../screens/onlineusers";
+import { screenOptions as userProductsScreenOptions } from "../screens/chatroom";
 import { screenOptions as onlineuserProductsScreenOptions } from "../screens/onlineusers";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { View, StyleSheet } from "react-native";
+import {
+  useTheme,
+  Avatar,
+  Title,
+  Caption,
+  Paragraph,
+  TouchableRipple,
+  Switch,
+} from "react-native-paper";
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: '#465881'
-   // backgroundColor: '#f0f0f0'
-    },
+    backgroundColor: "#465881",
+  },
   headerTitleStyle: {
     fontFamily: "open-sans-bold",
   },
@@ -31,12 +39,12 @@ const defaultNavOptions = {
 
 const AdminStackNavigator = createStackNavigator();
 
-export const AdminNavigator = () => {
+export const AdminNavigator = (props) => {
   return (
     <AdminStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <AdminStackNavigator.Screen
         name="UserProducts"
-        component={chatrrom}
+        component={chatroom}
         options={userProductsScreenOptions}
       />
       <AdminStackNavigator.Screen
@@ -52,48 +60,96 @@ const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   const dispatch = useDispatch();
+  const socket = useSelector((state) => state.chat.socket);
+  const name = useSelector((state) => state.auth.name);
+  const email = useSelector((state) => state.auth.email);
+
   return (
     <DrawerContentScrollView {...props}>
+      <View style={styles.userInfoSection}>
+        <View style={{ flexDirection: "row", marginTop: 15 }}>
+          <Avatar.Icon 
+            icon="account"
+            size={50}
+          />
+          <View style={{ marginLeft: 15, flexDirection: "column" }}>
+            <Title style={styles.title}>{name}</Title>
+            <Caption style={styles.caption}>{email}</Caption>
+          </View>
+        </View>
+      </View>
+
       <DrawerItemList {...props} />
       <DrawerItem
-        inactiveBackgroundColor="red"
-        label="log out"
+        label="Online users"
         icon={({ focused, color, size }) => (
           <Ionicons
-            color={color}
+          name="md-home"
+          size={size}
+          color={focused ? "#7cc" : "#ccc"}
+        />
+        )}
+        onPress={() => {
+          props.navigation.navigate('chatroom', { screen: 'onlineusers' });
+        }}
+      />
+      <DrawerItem
+        label="LOG OUT"
+        icon={({ focused, color, size }) => (
+          <Ionicons
+            color={focused ? "rgba(255, 16, 0,0.6)" : "rgba(255, 16, 0,0.6)"}
             size={size}
-            name={focused ? "heart" : "heart-outline"}
+            name={"power-outline"}
           />
         )}
         onPress={() => {
           dispatch(authActions.logout());
+          socket.disconnect()
         }}
-      />
-      <DrawerItem
-        inactiveBackgroundColor="blue"
-        label="log out"
-        icon={({ focused, color, size }) => (
-          <Ionicons
-            color={color}
-            size={size}
-            name={focused ? "heart" : "heart-outline"}
-          />
-        )}
-        onPress={() => {
-          props.navigation.navigate('chatrrom', { screen: 'onlineusers' });
-
-        }}
+        labelStyle={{ color: "rgba(255, 16, 0,0.6)" }}
       />
     </DrawerContentScrollView>
   );
 }
 
 export default function ChatNavigator() {
+  const isopen = useSelector((state) => state.chat.isdrawer_open);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="chatrrom" component={AdminNavigator} />
+      <Drawer.Screen
+        options={{
+          gestureEnabled: isopen,
+          drawerIcon: ({ focused, size }) => (
+            <Ionicons
+              name="md-home"
+              size={size}
+              color={focused ? "#7cc" : "#ccc"}
+            />
+          ),
+        }}
+        name="chatroom"
+        component={AdminNavigator}
+      />
     </Drawer.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+
+  userInfoSection: {
+    paddingLeft: 20,
+  },
+  title: {
+    fontSize: 16,
+    marginTop: 3,
+    fontWeight: "bold",
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 14,
+  },
+ 
+});
