@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as authActions from "../store/actions/auth";
+import * as chatActions from "../store/actions/chat";
 import { useDispatch, useSelector } from "react-redux";
 import { FlatList } from "react-native-gesture-handler";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -14,6 +15,10 @@ import HeaderButton from "../components/HeaderButton";
 
 const Onlineusers = ({ navigation }) => {
   const online_users = useSelector((state) => state.chat.online_users);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+  dispatch(chatActions.isdrawer_open(false))
+  })
   const renderListItem = (itemData) => {
     return (
       <View style={styles.userinput}>
@@ -66,18 +71,22 @@ const styles = StyleSheet.create({
   },
 });
 export const screenOptions = (navData) => {
+ 
+ const dispatch = useDispatch();
   return {
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
-          iconName={"arrow-circle-left"}
+          iconName={"arrow-back-circle-outline"}
           onPress={() => {
+           dispatch(chatActions.isdrawer_open(true))
             navData.navigation.goBack();
           }}
         />
       </HeaderButtons>
     ),
+    
     
   };
 };
