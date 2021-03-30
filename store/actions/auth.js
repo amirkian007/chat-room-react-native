@@ -19,12 +19,12 @@ export const seterror = (error) => {
 };
 
 export const authenticate = (userId, token, name, email) => {
-  return (dispatch) => {  
+  return (dispatch) => {
     dispatch({
       type: AUTHENTICATE,
-      userId: userId, 
+      userId: userId,
       token: token,
-      name: name, 
+      name: name,
       email: email,
     });
   };
@@ -40,41 +40,37 @@ export const signup = (email, password, name) => {
         password: password,
       })
       .then((e) => {
-        console.log(e);
-        dispatch(setloading(false));   
+        dispatch(setloading(false));
 
-       if(e.status === 201){ dispatch(
-          authenticate(
-            e.data.userId,
+        if (e.status === 201) {
+          dispatch(
+            authenticate(e.data.userId, e.data.token, e.data.name, e.data.email)
+          );
+          saveDataToStorage(
             e.data.token,
-            e.data.name,  
-            e.data.email 
-          )
-        );
-        saveDataToStorage(
-          e.data.token,
-          e.data.userId,
-          e.data.name,
-          e.data.email
-        );}
+            e.data.userId,
+            e.data.name,
+            e.data.email
+          );
+        }
       })
       .catch((err) => {
         dispatch(setloading(false));
-        console.log("error")
-        dispatch(seterror("email has allready been token"))
+        dispatch(seterror("email has allready been token"));
       });
   };
 };
 
 export const login = (email, password) => {
   return async (dispatch) => {
+    dispatch(setloading(true));
+
     axios
       .post("/auth/login", {
         email: email,
         password: password,
       })
       .then((res) => {
-        console.log(res.data);
         dispatch(
           authenticate(
             res.data.userId,
@@ -91,8 +87,8 @@ export const login = (email, password) => {
         );
       })
       .catch((err) => {
-        console.log(err)
-        dispatch(seterror("email and password do not match"))
+        dispatch(setloading(false));
+        dispatch(seterror("email and password do not match"));
       });
   };
 };
