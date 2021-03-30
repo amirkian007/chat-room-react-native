@@ -9,6 +9,8 @@ import io from "socket.io-client";
 import { useSelector ,useDispatch} from "react-redux";
 import * as chatActions from "../store/actions/chat";
 
+const server_url = "http://192.168.1.103:3000"
+
 const chatrrom = (props) => {
   const token = useSelector((state) => state.auth.token);
   const [inputhieght, setinputhieght] = useState({ height: "11%" });
@@ -31,12 +33,12 @@ const chatrrom = (props) => {
   };
 
   useEffect(() => {
-    var socket_ = io("http://192.168.1.103:3000", {
+    var socket_ = io(server_url, {
       auth: {
         token: token,
       },
     });
-  
+    props.navigation.closeDrawer()
     setsocket(socket_);
     dispatch(chatActions.setsocket(socket_))
     socket_.on("list_users", (data) => {
