@@ -54,11 +54,14 @@ const chatrrom = (props) => {
   }, []);
 
   const send = () => {
-    setmassage("");
-    socket.emit("chat-message", {
-      msg: massage_,
-      userid: userid,
-    });
+    if(Boolean(massage_)){
+      setmassage(null);
+      socket.emit("chat-message", {
+        msg: massage_,
+        userid: userid,
+      });
+    }
+
   };
   return (
     <KeyboardAvoidingView
