@@ -36,6 +36,7 @@ const chatrrom = (props) => {
         token: token,
       },
     });
+  
     setsocket(socket_);
     dispatch(chatActions.setsocket(socket_))
     socket_.on("list_users", (data) => {
@@ -73,7 +74,7 @@ const chatrrom = (props) => {
               myref = ref;
             }}
             inverted
-            style={styles.bbr}
+            style={styles.flatlist}
             data={chats}
             renderItem={renderListItem.bind(this)}
             contentContainerStyle={styles.list}
@@ -81,7 +82,7 @@ const chatrrom = (props) => {
           />
         </View>
 
-        <View style={{ ...styles.inputec, ...inputhieght }}>
+        <View style={{ ...styles.massageinput_container, ...inputhieght }}>
           <TextInput
             onFocus={() => {
               setinputhieght({ height: 58 });
@@ -89,16 +90,22 @@ const chatrrom = (props) => {
             onBlur={() => {
               setinputhieght({ height: "11%" });
             }}
-            style={styles.inpute}
+            style={styles.massage_input}
             multiline
             label="Massage ..."
             onChangeText={(msg) => {
               setmassage(msg);
             }}
             value={massage_}
+            theme={{
+             
+              colors: {
+                primary:'#0084ff',
+                //underlineColor:'transparent',
+              }}}
           />
           <Button
-            style={styles.wwwe}
+            style={styles.send_btn}
             onPress={() => {
               send();
             }}
@@ -115,24 +122,24 @@ const chatrrom = (props) => {
 export default chatrrom;
 
 const styles = StyleSheet.create({
-  bbr: {
-    height: "89%",
+  flatlist: {
+    height: "88.1%",
     backgroundColor: "#f5f5f5",
     paddingBottom: 10,
   },
-  inputec: {
+  massageinput_container: {
     position: "relative",
     alignContent: "center",
     justifyContent: "center",
     flexDirection: "row",
   },
-  wwwe: {
+  send_btn: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
     borderTopLeftRadius: 0,
   },
-  inpute: {
+  massage_input: {
     width: "80%",
     backgroundColor: "white",
     borderTopRightRadius: 0,
@@ -161,5 +168,6 @@ export const screenOptions = (navData) => {
         }} />
       </HeaderButtons>
     ),
+    
   };
 };
