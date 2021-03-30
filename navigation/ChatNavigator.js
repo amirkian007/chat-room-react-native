@@ -39,7 +39,7 @@ export const AdminNavigator = (props) => {
   return (
     <AdminStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <AdminStackNavigator.Screen
-        name="chatroom"
+        name="chatroom2"
         component={chatroom}
         options={chatroomScreenOptions}
       />
@@ -80,7 +80,7 @@ function CustomDrawerContent(props) {
         label="Online users"
         icon={({ focused, color, size }) => (
           <Ionicons
-          name="md-home"
+          name="people-circle-outline"
           size={size}
           color={focused ? "#7cc" : "#ccc"}
         />
@@ -99,8 +99,12 @@ function CustomDrawerContent(props) {
           />
         )}
         onPress={() => {
-          dispatch(authActions.logout());
-          socket.disconnect()
+          props.navigation.closeDrawer()
+          setTimeout(() => {
+            
+            dispatch(authActions.logout());
+            socket.disconnect()
+          }, 0);
         }}
         labelStyle={{ color: "rgba(255, 16, 0,0.6)" }}
       />
