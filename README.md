@@ -24,3 +24,13 @@ Chat Room app made with React Native, Nativepaper, nodejs, express js and socket
 - `NOTE : DO NOT SET http://localhost:3000 in  const server_url`
 - `npm start` to run React Native client on the running Android emulator
 
+## Screenshots
+
+<img src="/screen%20shot/4.jpg" width="270"/>
+ <img src="/screen%20shot/5.jpg" width="270"/>
+<img src="/screen%20shot/1.jpg" width="270"/>
+<img src="/screen%20shot/2.jpg" width="270"/> 
+<img src="/screen%20shot/3.jpg" width="270"/>
+<img src="/screen%20shot/gif.gif" width="270"/>
+
+
