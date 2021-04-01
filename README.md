@@ -31,6 +31,6 @@ Chat Room app made with React Native, Nativepaper, nodejs, express js and socket
 <img src="/screen%20shot/1.jpg" width="270"/>
 <img src="/screen%20shot/2.jpg" width="270"/> 
 <img src="/screen%20shot/3.jpg" width="270"/>
-<img src="/screen%20shot/gif.gif" width="270"/>
+
 
 
