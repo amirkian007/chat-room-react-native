@@ -128,7 +128,8 @@ export default chatrrom;
 const styles = StyleSheet.create({
   flatlist: {
     height: "88.1%",
-    backgroundColor: "#f5f5f5",
+   // backgroundColor: "#f5f5f5",
+   backgroundColor : 'white',
     paddingBottom: 10,
   },
   massageinput_container: {
@@ -136,6 +137,9 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     flexDirection: "row",
+    borderTopWidth : 0.5,
+    borderColor :'#b8b8b8'
+
   },
   send_btn: {
     justifyContent: "center",
@@ -146,10 +150,13 @@ const styles = StyleSheet.create({
   massage_input: {
     width: "80%",
     backgroundColor: "white",
-    borderTopRightRadius: 0,
-  },
+   borderTopRightRadius: 0,
+   // elevation :1
+      },
   chatcontainer: {
-    paddingBottom : 10
+    paddingBottom : 10,
+    backgroundColor : 'white'
+
   }
 });
 export const screenOptions = (navData) => {

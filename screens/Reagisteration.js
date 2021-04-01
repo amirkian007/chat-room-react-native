@@ -100,7 +100,7 @@ const Registration = ({ navigation }) => {
       <View style={styles.inputcontainer}>
         <View style={styles.inputcontainer}>
           <View>
-            <Text style={styles.title}>KIAN Chat App</Text>
+            <Text style={styles.title}>CHAT ROOM</Text>
           </View>
 
           {!islogin ? (
