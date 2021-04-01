@@ -26,13 +26,10 @@ Chat Room app made with React Native, Nativepaper, nodejs, express js and socket
 
 ## Screenshots
 
-![Alt Text](/screen%20shot/5.jpg)
-![Alt Text](https://github.com/amirkianadl/chat-room-react-native/blob/master/screen%20shot/5.jpg)
-
  <img src="/screen%20shot/5.jpg" width="270"/>
 <img src="/screen%20shot/1.jpg" width="270"/>
 <img src="/screen%20shot/2.jpg" width="270"/> 
 <img src="/screen%20shot/3.jpg" width="270"/>
-
+<img src="/screen%20shot/gif.gif" width="270"/>
 
 
